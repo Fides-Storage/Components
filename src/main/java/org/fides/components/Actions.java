@@ -21,9 +21,24 @@ public class Actions {
 	public static final String GETKEYFILE = "getKeyFile";
 
 	/**
+	 * The action for updateKeyFile
+	 */
+	public static final String UPDATEKEYFILE = "updateKeyFile";
+
+	/**
 	 * The action for getFile
 	 */
 	public static final String GETFILE = "getFile";
+
+	/**
+	 * The action for updateFile
+	 */
+	public static final String UPDATEFILE = "updateFile";
+
+	/**
+	 * The action for uploadFile
+	 */
+	public static final String UPLOADFILE = "uploadFile";
 
 	/**
 	 * The action for login
@@ -43,6 +58,11 @@ public class Actions {
 		 * The property for passwordHash
 		 */
 		public static final String PASSWORD_HASH = "passwordHash";
+
+		/**
+		 * The property for location
+		 */
+		public static final String LOCATION = "location";
 	}
 
 }
