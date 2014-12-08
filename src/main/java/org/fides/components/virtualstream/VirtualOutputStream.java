@@ -18,6 +18,8 @@ public class VirtualOutputStream extends FilterOutputStream {
 
 	private short count = 0;
 
+	private boolean closed = false;
+
 	/**
 	 * Constructor
 	 * 
@@ -43,6 +45,9 @@ public class VirtualOutputStream extends FilterOutputStream {
 
 	@Override
 	public void write(int b) throws IOException {
+		if (closed) {
+			throw new IOException("Virtual stream is closed");
+		}
 		if (count >= buffer.length) {
 			flushBuffer();
 		}
@@ -63,16 +68,23 @@ public class VirtualOutputStream extends FilterOutputStream {
 
 	@Override
 	public void flush() throws IOException {
+		if (closed) {
+			throw new IOException("Virtual stream is closed");
+		}
 		flushBuffer();
 		out.flush();
 	}
 
 	@Override
 	public void close() throws IOException {
+		if (closed) {
+			throw new IOException("Virtual stream is closed");
+		}
 		flushBuffer();
 		byte[] postfix = ByteBuffer.allocate(2).putShort((short) -1).array();
 		out.write(postfix);
 		out.flush();
+		closed = true;
 	}
 
 }
