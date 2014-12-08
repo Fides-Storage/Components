@@ -57,7 +57,7 @@ public class VirtualOutputStream extends FilterOutputStream {
 	private void flushBuffer() throws IOException {
 		byte[] prefix = ByteBuffer.allocate(2).putShort(count).array();
 		out.write(prefix);
-		out.write(buffer, 0, count - 1);
+		out.write(buffer, 0, count);
 		count = 0;
 	}
 

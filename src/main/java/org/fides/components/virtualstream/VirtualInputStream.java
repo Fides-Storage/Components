@@ -1,6 +1,5 @@
 package org.fides.components.virtualstream;
 
-import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -9,7 +8,7 @@ import java.nio.ByteBuffer;
  * A virtual {@link InputStream} that simulates an {@link InputStream} on top of an existing {@link InputStream}. This
  * stream does not close the underlying {@link InputStream}.
  */
-public class VirtualInputStream extends FilterInputStream {
+public class VirtualInputStream extends InputStream {
 
 	private short bytesLeft = 0;
 
@@ -21,7 +20,7 @@ public class VirtualInputStream extends FilterInputStream {
 	 * @param in
 	 */
 	protected VirtualInputStream(InputStream in) {
-		super(in);
+		this.in = in;
 	}
 
 	@Override
