@@ -41,6 +41,11 @@ public class Actions {
 	public static final String UPLOADFILE = "uploadFile";
 
 	/**
+	 * The action for removeFile
+	 */
+	public static final String REMOVEFILE = "removeFile";
+
+	/**
 	 * The action for login
 	 */
 	public static final String LOGIN = "login";
