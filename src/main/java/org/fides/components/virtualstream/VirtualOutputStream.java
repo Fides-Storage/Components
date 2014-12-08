@@ -26,10 +26,14 @@ public class VirtualOutputStream extends FilterOutputStream {
 	 * @param out
 	 *            The {@link OutputStream} to build the virtual {@link OutputStream} upon
 	 * @param bufferSize
-	 *            The size of the buffer
+	 *            The size of the buffer, has to be bigger then 0
 	 */
 	public VirtualOutputStream(OutputStream out, short bufferSize) {
 		super(out);
+		if (bufferSize < 1) {
+			throw new IllegalArgumentException("BufferSize has to be bigger then 0");
+		}
+
 		buffer = new byte[bufferSize];
 	}
 
