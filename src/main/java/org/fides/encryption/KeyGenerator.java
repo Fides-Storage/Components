@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
 
 import javax.crypto.SecretKeyFactory;
@@ -26,6 +27,10 @@ public final class KeyGenerator {
 	private static int pbkdf2Iterations = 1000;
 
 	private static SecureRandom random = new SecureRandom();
+
+	static{
+		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+	}
 
 	private KeyGenerator() {
 	}
@@ -104,6 +109,8 @@ public final class KeyGenerator {
 		try {
 			// Get al SecretKeyFactory instance based on the given algorithm and generate the SecretKey based on the
 			// PBEKeySpec
+
+			Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 			return SecretKeyFactory.getInstance(PBKDF2_ALGORITHM).generateSecret(spec);
 		} catch (NoSuchAlgorithmException e) {
 			log.error(e);
