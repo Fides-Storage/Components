@@ -18,8 +18,9 @@ public class VirtualInputStream extends InputStream {
 	 * Constructor
 	 * 
 	 * @param in
+	 *            The inputstream to virtualize
 	 */
-	protected VirtualInputStream(InputStream in) {
+	public VirtualInputStream(InputStream in) {
 		this.in = in;
 	}
 

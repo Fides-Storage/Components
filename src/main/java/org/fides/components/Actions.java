@@ -51,6 +51,11 @@ public class Actions {
 	public static final String LOGIN = "login";
 
 	/**
+	 * The action for disconnect
+	 */
+	public static final String DISCONNECT = "disconnect";
+
+	/**
 	 * Properties that are used by the communication
 	 */
 	public class Properties {
