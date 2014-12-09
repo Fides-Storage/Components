@@ -34,15 +34,14 @@ public class VirtualInputStream extends InputStream {
 		}
 		--bytesLeft;
 		return in.read();
+
 	}
 
 	private void readPrefix() throws IOException {
 		// Read the prefix
 		byte[] prefix = new byte[2];
-		int read = in.read(prefix);
-		if (read != 2) {
-			throw new IOException("Prefix does not have the right size");
-		}
+		prefix[0] = (byte) in.read();
+		prefix[1] = (byte) in.read();
 		bytesLeft = ByteBuffer.wrap(prefix).getShort();
 	}
 

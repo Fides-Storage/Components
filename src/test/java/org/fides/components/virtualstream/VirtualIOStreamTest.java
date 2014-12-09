@@ -21,11 +21,11 @@ import org.junit.Test;
  */
 public class VirtualIOStreamTest {
 
-	private static final byte[] testBytes = "This is a sentence for testing the sending and receiving of the Virtual Input- and OutputStream".getBytes();
+	static final byte[] TEST_BYTES = "This is a sentence for testing the sending and receiving of the Virtual Input- and OutputStream".getBytes();
 
-	private static final byte[] testBytes2 = "This is another sentence used for testing the sending and receiving of our VirtualIOStream".getBytes();
+	static final byte[] TEST_BYTES_2 = "This is another sentence used for testing the sending and receiving of our VirtualIOStream".getBytes();
 
-	private static final short testBufferSize = 5;
+	static final short TEST_BUFFER_SIZE = 5;
 
 	/**
 	 * 
@@ -34,9 +34,9 @@ public class VirtualIOStreamTest {
 	@Test
 	public void testByteArraySendReceive() throws IOException {
 		ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-		OutputStream virtualOut = new VirtualOutputStream(byteOut, testBufferSize);
+		OutputStream virtualOut = new VirtualOutputStream(byteOut, TEST_BUFFER_SIZE);
 
-		virtualOut.write(testBytes);
+		virtualOut.write(TEST_BYTES);
 		virtualOut.flush();
 		virtualOut.close();
 		InputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
@@ -46,7 +46,7 @@ public class VirtualIOStreamTest {
 		IOUtils.copy(virtualIn, sentBytes);
 		virtualIn.close();
 
-		assertArrayEquals(testBytes, sentBytes.toByteArray());
+		assertArrayEquals(TEST_BYTES, sentBytes.toByteArray());
 	}
 
 	/**
@@ -58,13 +58,13 @@ public class VirtualIOStreamTest {
 	public void testSendReceiveTwice() throws IOException {
 		ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
 
-		OutputStream virtualOut1 = new VirtualOutputStream(byteOut, testBufferSize);
-		virtualOut1.write(testBytes);
+		OutputStream virtualOut1 = new VirtualOutputStream(byteOut, TEST_BUFFER_SIZE);
+		virtualOut1.write(TEST_BYTES);
 		virtualOut1.flush();
 		virtualOut1.close();
 
-		OutputStream virtualOut2 = new VirtualOutputStream(byteOut, testBufferSize);
-		virtualOut2.write(testBytes2);
+		OutputStream virtualOut2 = new VirtualOutputStream(byteOut, TEST_BUFFER_SIZE);
+		virtualOut2.write(TEST_BYTES_2);
 		virtualOut2.flush();
 		virtualOut2.close();
 
@@ -80,8 +80,8 @@ public class VirtualIOStreamTest {
 		IOUtils.copy(virtualIn2, sentBytes2);
 		virtualIn2.close();
 
-		assertArrayEquals(testBytes, sentBytes.toByteArray());
-		assertArrayEquals(testBytes2, sentBytes2.toByteArray());
+		assertArrayEquals(TEST_BYTES, sentBytes.toByteArray());
+		assertArrayEquals(TEST_BYTES_2, sentBytes2.toByteArray());
 	}
 
 	/**
@@ -92,13 +92,13 @@ public class VirtualIOStreamTest {
 	@Test
 	public void testSendReceiveMultipleFlushes() throws IOException {
 		ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-		OutputStream virtualOut = new VirtualOutputStream(byteOut, testBufferSize);
+		OutputStream virtualOut = new VirtualOutputStream(byteOut, TEST_BUFFER_SIZE);
 
 		virtualOut.flush();
-		virtualOut.write(testBytes);
+		virtualOut.write(TEST_BYTES);
 		virtualOut.flush();
 		virtualOut.flush();
-		virtualOut.write(testBytes2);
+		virtualOut.write(TEST_BYTES_2);
 		virtualOut.flush();
 		virtualOut.close();
 		InputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
@@ -108,7 +108,7 @@ public class VirtualIOStreamTest {
 		IOUtils.copy(virtualIn, sentBytes);
 		virtualIn.close();
 
-		byte[] expectedResult = ArrayUtils.addAll(testBytes, testBytes2);
+		byte[] expectedResult = ArrayUtils.addAll(TEST_BYTES, TEST_BYTES_2);
 		assertArrayEquals(expectedResult, sentBytes.toByteArray());
 	}
 
@@ -122,7 +122,7 @@ public class VirtualIOStreamTest {
 		ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
 		OutputStream virtualOut = new VirtualOutputStream(byteOut, (short) 1);
 
-		virtualOut.write(testBytes);
+		virtualOut.write(TEST_BYTES);
 		virtualOut.flush();
 		virtualOut.close();
 		InputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
@@ -132,7 +132,24 @@ public class VirtualIOStreamTest {
 		IOUtils.copy(virtualIn, sentBytes);
 		virtualIn.close();
 
-		assertArrayEquals(testBytes, sentBytes.toByteArray());
+		assertArrayEquals(TEST_BYTES, sentBytes.toByteArray());
+	}
+
+	@Test
+	public void testSendReceiveEmptyStream() throws IOException {
+		ByteArrayInputStream emptyInput = new ByteArrayInputStream(new byte[0]);
+		ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+		OutputStream virtualOut = new VirtualOutputStream(byteOut, TEST_BUFFER_SIZE);
+
+		IOUtils.copy(emptyInput, virtualOut);
+		virtualOut.flush();
+		virtualOut.close();
+
+		InputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
+		InputStream virtualIn = new VirtualInputStream(byteIn);
+		System.out.println(virtualIn.read());
+		// assert(virtualIn.read() == -1);
+		virtualIn.close();
 	}
 
 	/**
@@ -145,13 +162,13 @@ public class VirtualIOStreamTest {
 	public void testSendCloseIn() throws IOException {
 		ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
 
-		OutputStream virtualOut1 = new VirtualOutputStream(byteOut, testBufferSize);
-		virtualOut1.write(testBytes);
+		OutputStream virtualOut1 = new VirtualOutputStream(byteOut, TEST_BUFFER_SIZE);
+		virtualOut1.write(TEST_BYTES);
 		virtualOut1.flush();
 		virtualOut1.close();
 
-		OutputStream virtualOut2 = new VirtualOutputStream(byteOut, testBufferSize);
-		virtualOut2.write(testBytes2);
+		OutputStream virtualOut2 = new VirtualOutputStream(byteOut, TEST_BUFFER_SIZE);
+		virtualOut2.write(TEST_BYTES_2);
 		virtualOut2.flush();
 		virtualOut2.close();
 
@@ -170,6 +187,6 @@ public class VirtualIOStreamTest {
 		virtualIn2.close();
 
 		assertEquals(10, sentBytes.toByteArray().length);
-		assertArrayEquals(testBytes2, sentBytes2.toByteArray());
+		assertArrayEquals(TEST_BYTES_2, sentBytes2.toByteArray());
 	}
 }
