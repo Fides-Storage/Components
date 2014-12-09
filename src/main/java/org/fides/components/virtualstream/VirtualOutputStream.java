@@ -72,8 +72,12 @@ public class VirtualOutputStream extends FilterOutputStream {
 
 	@Override
 	public void flush() throws IOException {
+		if (count <= 0) {
+			// No need to flush when the buffer is empty
+			return;
+		}
 		if (closed) {
-			throw new IOException("Virtual stream is closed");
+			throw new IOException("VirtualOutputStream is already closed");
 		}
 		flushBuffer();
 		out.flush();
@@ -82,7 +86,8 @@ public class VirtualOutputStream extends FilterOutputStream {
 	@Override
 	public void close() throws IOException {
 		if (closed) {
-			throw new IOException("Virtual stream is closed");
+			// We are already closed
+			return;
 		}
 		flushBuffer();
 		byte[] postfix = ByteBuffer.allocate(2).putShort((short) -1).array();
