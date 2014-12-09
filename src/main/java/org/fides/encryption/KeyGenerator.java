@@ -28,7 +28,7 @@ public final class KeyGenerator {
 
 	private static SecureRandom random = new SecureRandom();
 
-	static{
+	static {
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 	}
 
@@ -111,8 +111,12 @@ public final class KeyGenerator {
 			// PBEKeySpec
 
 			Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+			System.out.println("Test");
+			System.out.println(SecretKeyFactory.getInstance(PBKDF2_ALGORITHM).generateSecret(spec));
+
 			return SecretKeyFactory.getInstance(PBKDF2_ALGORITHM).generateSecret(spec);
 		} catch (NoSuchAlgorithmException e) {
+			System.out.println(e);
 			log.error(e);
 		} catch (InvalidKeySpecException e) {
 			log.error(e);

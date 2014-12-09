@@ -1,5 +1,10 @@
 package org.fides.encryption;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.security.Key;
+import java.security.Security;
+
 import org.bouncycastle.crypto.BufferedBlockCipher;
 import org.bouncycastle.crypto.CipherParameters;
 import org.bouncycastle.crypto.engines.CamelliaEngine;
@@ -10,11 +15,6 @@ import org.bouncycastle.crypto.paddings.PKCS7Padding;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.bouncycastle.crypto.params.KeyParameter;
 import org.bouncycastle.crypto.params.ParametersWithIV;
-
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.security.Key;
-import java.security.Security;
 
 /**
  * This EncryptionUtil can return Decryption and Encryption Streams
@@ -36,7 +36,7 @@ public class EncryptionUtils {
 	/** The IV used to initiate the cipher */
 	public static final byte[] IV = { 0x46, 0x69, 0x64, 0x65, 0x73, 0x2, 0x69, 0x73, 0x20, 0x53, 0x65, 0x63, 0x75, 0x72, 0x65, 0x21 };
 
-	static{
+	static {
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 	}
 
@@ -70,7 +70,7 @@ public class EncryptionUtils {
 	 *            The {@link Key} to use
 	 * @return An encrypting {@link java.io.OutputStream}
 	 */
-	public static  OutputStream getEncryptionStream(OutputStream out, Key key) {
+	public static OutputStream getEncryptionStream(OutputStream out, Key key) {
 		BufferedBlockCipher cipher = createCipher();
 
 		KeyParameter keyParam = new KeyParameter(key.getEncoded());
@@ -83,7 +83,7 @@ public class EncryptionUtils {
 	}
 
 	/** Create the cipher to use */
-	public static  BufferedBlockCipher createCipher() {
+	public static BufferedBlockCipher createCipher() {
 		return new PaddedBufferedBlockCipher(new CBCBlockCipher(new CamelliaEngine()), new PKCS7Padding());
 	}
 }
