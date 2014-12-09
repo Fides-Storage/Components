@@ -49,6 +49,10 @@ public class VirtualInputStream extends InputStream {
 	@Override
 	public void close() throws IOException {
 		// We do not want to close the underlying InputStream
+		// We do want to read everything the virtualoutputstreamw wanted to give us
+		while (read() != -1) {
+			// We just want to read until empty
+		}
 	}
 
 	@Override
