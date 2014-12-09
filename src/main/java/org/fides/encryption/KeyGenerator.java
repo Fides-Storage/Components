@@ -109,8 +109,6 @@ public final class KeyGenerator {
 		try {
 			// Get al SecretKeyFactory instance based on the given algorithm and generate the SecretKey based on the
 			// PBEKeySpec
-
-			Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 			return SecretKeyFactory.getInstance(PBKDF2_ALGORITHM).generateSecret(spec);
 		} catch (NoSuchAlgorithmException e) {
 			log.error(e);
