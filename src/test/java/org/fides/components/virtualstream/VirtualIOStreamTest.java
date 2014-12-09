@@ -135,23 +135,6 @@ public class VirtualIOStreamTest {
 		assertArrayEquals(TEST_BYTES, sentBytes.toByteArray());
 	}
 
-	@Test
-	public void testSendReceiveEmptyStream() throws IOException {
-		ByteArrayInputStream emptyInput = new ByteArrayInputStream(new byte[0]);
-		ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-		OutputStream virtualOut = new VirtualOutputStream(byteOut, TEST_BUFFER_SIZE);
-
-		IOUtils.copy(emptyInput, virtualOut);
-		virtualOut.flush();
-		virtualOut.close();
-
-		InputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
-		InputStream virtualIn = new VirtualInputStream(byteIn);
-		System.out.println(virtualIn.read());
-		// assert(virtualIn.read() == -1);
-		virtualIn.close();
-	}
-
 	/**
 	 * Tests if when an {@link VirtualInputStream} is closed, it will read until the end of the
 	 * {@link VirtualOutputStream}. This so check if it does not break the data that comes after
