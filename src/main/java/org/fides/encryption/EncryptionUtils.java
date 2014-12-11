@@ -30,9 +30,6 @@ public class EncryptionUtils {
 	/** The algorithm used for encryption and decryption */
 	public static final int KEY_SIZE = 32; // 256 bit
 
-	/** Size of the salt used in generating the master key, it should NEVER change */
-	public static final int SALT_SIZE = 16; // 128 bit
-
 	/** The IV used to initiate the cipher */
 	public static final byte[] IV = { 0x46, 0x69, 0x64, 0x65, 0x73, 0x2, 0x69, 0x73, 0x20, 0x53, 0x65, 0x63, 0x75, 0x72, 0x65, 0x21 };
 
