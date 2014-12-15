@@ -60,9 +60,9 @@ public class Actions {
 	 */
 	public class Properties {
 		/**
-		 * The property for username
+		 * The property for usernameHash
 		 */
-		public static final String USERNAME = "username";
+		public static final String USERNAME_HASH = "username";
 
 		/**
 		 * The property for passwordHash
