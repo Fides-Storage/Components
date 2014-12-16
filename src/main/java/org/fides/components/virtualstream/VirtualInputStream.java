@@ -40,8 +40,14 @@ public class VirtualInputStream extends InputStream {
 	private void readPrefix() throws IOException {
 		// Read the prefix
 		byte[] prefix = new byte[2];
-		prefix[0] = (byte) in.read();
-		prefix[1] = (byte) in.read();
+		int first = in.read();
+		int second = in.read();
+		if (first < 0 || second < 0) {
+			throw new IOException("Could not read properly prefix");
+		}
+
+		prefix[0] = (byte) first;
+		prefix[1] = (byte) second;
 		bytesLeft = ByteBuffer.wrap(prefix).getShort();
 	}
 
