@@ -15,7 +15,7 @@ public class VirtualInputStream extends InputStream {
 	private InputStream in;
 
 	/**
-	 * Constructor
+	 * Constructor for VirtualInputStream
 	 * 
 	 * @param in
 	 *            The inputstream to virtualize

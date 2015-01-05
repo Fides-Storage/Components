@@ -15,8 +15,6 @@ import org.junit.Test;
 
 /**
  * Tests for the {@link VirtualInputStream} and the {@link VirtualOutputStream}
- * 
- * @author Koen
  *
  */
 public class VirtualIOStreamTest {

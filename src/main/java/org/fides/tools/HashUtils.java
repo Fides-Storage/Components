@@ -10,8 +10,6 @@ import org.apache.logging.log4j.Logger;
 /**
  * Utils for client
  * 
- * @author jesse
- * 
  */
 public class HashUtils {
 	/**
