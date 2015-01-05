@@ -13,37 +13,37 @@ public class Actions {
 	/**
 	 * The action for createUser
 	 */
-	public static final String CREATEUSER = "createUser";
+	public static final String CREATE_USER = "createUser";
 
 	/**
 	 * The action for getKeyFile
 	 */
-	public static final String GETKEYFILE = "getKeyFile";
+	public static final String GET_KEY_FILE = "getKeyFile";
 
 	/**
 	 * The action for updateKeyFile
 	 */
-	public static final String UPDATEKEYFILE = "updateKeyFile";
+	public static final String UPDATE_KEY_FILE = "updateKeyFile";
 
 	/**
 	 * The action for getFile
 	 */
-	public static final String GETFILE = "getFile";
+	public static final String GET_FILE = "getFile";
 
 	/**
 	 * The action for updateFile
 	 */
-	public static final String UPDATEFILE = "updateFile";
+	public static final String UPDATE_FILE = "updateFile";
 
 	/**
 	 * The action for uploadFile
 	 */
-	public static final String UPLOADFILE = "uploadFile";
+	public static final String UPLOAD_FILE = "uploadFile";
 
 	/**
 	 * The action for removeFile
 	 */
-	public static final String REMOVEFILE = "removeFile";
+	public static final String REMOVE_FILE = "removeFile";
 
 	/**
 	 * The action for login
