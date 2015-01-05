@@ -21,11 +21,11 @@ import org.junit.Test;
  */
 public class VirtualIOStreamTest {
 
-	static final byte[] TEST_BYTES = "This is a sentence for testing the sending and receiving of the Virtual Input- and OutputStream".getBytes();
+	private static final byte[] TEST_BYTES = "This is a sentence for testing the sending and receiving of the Virtual Input- and OutputStream".getBytes();
 
-	static final byte[] TEST_BYTES_2 = "This is another sentence used for testing the sending and receiving of our VirtualIOStream".getBytes();
+	private static final byte[] TEST_BYTES_2 = "This is another sentence used for testing the sending and receiving of our VirtualIOStream".getBytes();
 
-	static final short TEST_BUFFER_SIZE = 5;
+	private static final short TEST_BUFFER_SIZE = 5;
 
 	/**
 	 * 
