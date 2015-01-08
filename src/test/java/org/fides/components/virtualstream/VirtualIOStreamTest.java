@@ -2,6 +2,8 @@ package org.fides.components.virtualstream;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,7 +17,7 @@ import org.junit.Test;
 
 /**
  * Tests for the {@link VirtualInputStream} and the {@link VirtualOutputStream}
- *
+ * 
  */
 public class VirtualIOStreamTest {
 
@@ -169,5 +171,78 @@ public class VirtualIOStreamTest {
 
 		assertEquals(10, sentBytes.toByteArray().length);
 		assertArrayEquals(TEST_BYTES_2, sentBytes2.toByteArray());
+	}
+
+	/**
+	 * Tests if the correct exceptions are thrown when trying to call methods on a closed VirtualOutputStream
+	 * 
+	 * @throws IOException
+	 */
+	@Test
+	public void testOutputStreamClosed() throws IOException {
+		VirtualOutputStream virtualOut = new VirtualOutputStream(new ByteArrayOutputStream());
+		virtualOut.close();
+
+		// No exception should be thrown, the stream has already been closed and there should be nothing left to flush
+		virtualOut.close();
+		virtualOut.flush();
+
+		boolean successfulCatch = false;
+		try {
+			virtualOut.write(TEST_BYTES);
+		} catch (IOException e) {
+			successfulCatch = true;
+		}
+		assertTrue(successfulCatch);
+	}
+
+	/**
+	 * A badweather test for testing if trying to create an outputstream without a buffer throws the correct exception.
+	 */
+	@Test
+	public void testIllegalOutputStream() {
+		boolean successfulCatch = false;
+		try {
+			new VirtualOutputStream(new ByteArrayOutputStream(), (short) 0);
+		} catch (IllegalArgumentException e) {
+			successfulCatch = true;
+		}
+		assertTrue(successfulCatch);
+
+		successfulCatch = false;
+		try {
+			new VirtualOutputStream(new ByteArrayOutputStream(), (short) -1);
+		} catch (IllegalArgumentException e) {
+			successfulCatch = true;
+		}
+		assertTrue(successfulCatch);
+	}
+
+	/**
+	 * Tests if all unsupported functions of VirtualInputStream throw the correct exceptions.
+	 */
+	@Test
+	public void testUnsupportedInputFunctions() {
+		InputStream virtualIn = new VirtualInputStream(new ByteArrayInputStream(new byte[0]));
+
+		assertFalse(virtualIn.markSupported());
+
+		boolean successfulCatch = false;
+		try {
+			virtualIn.reset();
+		} catch (IOException e) {
+			successfulCatch = true;
+		}
+		assertTrue(successfulCatch);
+
+		successfulCatch = false;
+		try {
+			virtualIn.skip(2);
+		} catch (IOException e) {
+			successfulCatch = true;
+		}
+		assertTrue(successfulCatch);
+
+		IOUtils.closeQuietly(virtualIn);
 	}
 }

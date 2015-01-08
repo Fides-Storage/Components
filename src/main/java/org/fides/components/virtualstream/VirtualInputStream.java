@@ -43,7 +43,7 @@ public class VirtualInputStream extends InputStream {
 		int first = in.read();
 		int second = in.read();
 		if (first < 0 || second < 0) {
-			throw new IOException("Could not read properly prefix");
+			throw new IOException("Could not read prefix properly");
 		}
 
 		prefix[0] = (byte) first;
@@ -54,7 +54,7 @@ public class VirtualInputStream extends InputStream {
 	@Override
 	public void close() throws IOException {
 		// We do not want to close the underlying InputStream
-		// We do want to read everything the virtualoutputstreamw wanted to give us
+		// We do want to read everything the virtualoutputstream wanted to give us
 		while (read() != -1) {
 			// We just want to read until empty
 		}
@@ -62,22 +62,7 @@ public class VirtualInputStream extends InputStream {
 
 	@Override
 	public long skip(long n) throws IOException {
-		throw new UnsupportedOperationException("skip is not supported");
-	}
-
-	@Override
-	public synchronized void mark(int readlimit) {
-		throw new UnsupportedOperationException("mark is not supported");
-	}
-
-	@Override
-	public synchronized void reset() throws IOException {
-		throw new UnsupportedOperationException("reset is not supported");
-	}
-
-	@Override
-	public boolean markSupported() {
-		return false;
+		throw new IOException("skip not supported");
 	}
 
 }

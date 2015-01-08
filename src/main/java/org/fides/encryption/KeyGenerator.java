@@ -110,7 +110,6 @@ public final class KeyGenerator {
 			// PBEKeySpec
 			return SecretKeyFactory.getInstance(PBKDF2_ALGORITHM).generateSecret(spec);
 		} catch (NoSuchAlgorithmException e) {
-			System.out.println(e);
 			log.error(e);
 		} catch (InvalidKeySpecException e) {
 			log.error(e);
