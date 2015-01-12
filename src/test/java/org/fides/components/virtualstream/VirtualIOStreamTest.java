@@ -224,7 +224,7 @@ public class VirtualIOStreamTest {
 	 */
 	@Test
 	public void testUnsupportedInputFunctions() {
-		InputStream virtualIn = new VirtualInputStream(new ByteArrayInputStream(new byte[0]));
+		VirtualInputStream virtualIn = new VirtualInputStream(new ByteArrayInputStream(new byte[0]));
 
 		assertFalse(virtualIn.markSupported());
 
@@ -238,7 +238,7 @@ public class VirtualIOStreamTest {
 
 		successfulCatch = false;
 		try {
-			assertEquals(virtualIn.skip(2), 2);
+			virtualIn.skip(2);
 		} catch (IOException e) {
 			successfulCatch = true;
 		}
