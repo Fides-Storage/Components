@@ -19,13 +19,13 @@ public final class KeyGenerator {
 	/**
 	 * Log for this class
 	 */
-	private static Logger log = LogManager.getLogger(KeyGenerator.class);
+	private static final Logger LOG = LogManager.getLogger(KeyGenerator.class);
 
 	private static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
 
 	private static int pbkdf2Iterations = 1000;
 
-	private static SecureRandom random = new SecureRandom();
+	private static final SecureRandom RANDOM = new SecureRandom();
 
 	static {
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
@@ -44,7 +44,7 @@ public final class KeyGenerator {
 	public static byte[] getSalt(int saltByteSize) {
 		// Generate a random salt
 		byte[] salt = new byte[saltByteSize];
-		random.nextBytes(salt);
+		RANDOM.nextBytes(salt);
 		return salt;
 	}
 
@@ -82,9 +82,8 @@ public final class KeyGenerator {
 	 *            the size of the generated key in bytes.
 	 * @return a random generated Key
 	 * @throws NoSuchAlgorithmException
-	 * @throws InvalidKeySpecException
 	 */
-	public static Key generateRandomKey(String algorithm, int keyByteSize) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public static Key generateRandomKey(String algorithm, int keyByteSize) throws NoSuchAlgorithmException {
 		javax.crypto.KeyGenerator generator = javax.crypto.KeyGenerator.getInstance(algorithm);
 		generator.init(keyByteSize * 8);
 		return generator.generateKey();
@@ -109,10 +108,8 @@ public final class KeyGenerator {
 			// Get al SecretKeyFactory instance based on the given algorithm and generate the SecretKey based on the
 			// PBEKeySpec
 			return SecretKeyFactory.getInstance(PBKDF2_ALGORITHM).generateSecret(spec);
-		} catch (NoSuchAlgorithmException e) {
-			log.error(e);
-		} catch (InvalidKeySpecException e) {
-			log.error(e);
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+			LOG.error(e);
 		}
 		return null;
 	}

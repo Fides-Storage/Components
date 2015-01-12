@@ -31,7 +31,7 @@ public class EncryptionUtils {
 	public static final int KEY_SIZE = 32; // 256 bit
 
 	/** The IV used to initiate the cipher */
-	public static final byte[] IV = { 0x46, 0x69, 0x64, 0x65, 0x73, 0x2, 0x69, 0x73, 0x20, 0x53, 0x65, 0x63, 0x75, 0x72, 0x65, 0x21 };
+	private static final byte[] IV = { 0x46, 0x69, 0x64, 0x65, 0x73, 0x2, 0x69, 0x73, 0x20, 0x53, 0x65, 0x63, 0x75, 0x72, 0x65, 0x21 };
 
 	static {
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
@@ -80,7 +80,7 @@ public class EncryptionUtils {
 	}
 
 	/** Create the cipher to use */
-	public static BufferedBlockCipher createCipher() {
+	private static BufferedBlockCipher createCipher() {
 		return new PaddedBufferedBlockCipher(new CBCBlockCipher(new CamelliaEngine()), new PKCS7Padding());
 	}
 }
