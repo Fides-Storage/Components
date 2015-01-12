@@ -15,7 +15,7 @@ public class HashUtils {
 	/**
 	 * Log for this class
 	 */
-	private static Logger log = LogManager.getLogger(HashUtils.class);
+	private static final Logger LOG = LogManager.getLogger(HashUtils.class);
 
 	/**
 	 * hash function to hash password
@@ -35,7 +35,7 @@ public class HashUtils {
 			messageDigest.update(data.getBytes());
 			return toHex(messageDigest.digest());
 		} catch (NoSuchAlgorithmException e) {
-			log.error(e);
+			LOG.error(e);
 		}
 		return null;
 

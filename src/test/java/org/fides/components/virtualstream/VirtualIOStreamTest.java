@@ -3,6 +3,7 @@ package org.fides.components.virtualstream;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
@@ -160,7 +161,7 @@ public class VirtualIOStreamTest {
 		InputStream virtualIn1 = new VirtualInputStream(byteIn);
 		ByteArrayOutputStream sentBytes = new ByteArrayOutputStream();
 		byte[] bytesRead = new byte[10];
-		virtualIn1.read(bytesRead);
+		assertNotEquals(virtualIn1.read(bytesRead), -1);
 		sentBytes.write(bytesRead);
 		virtualIn1.close();
 
@@ -197,7 +198,7 @@ public class VirtualIOStreamTest {
 	}
 
 	/**
-	 * A badweather test for testing if trying to create an outputstream without a buffer throws the correct exception.
+	 * A bad weather test for testing if trying to create an OutputStream without a buffer throws the correct exception.
 	 */
 	@Test
 	public void testIllegalOutputStream() {
@@ -223,7 +224,7 @@ public class VirtualIOStreamTest {
 	 */
 	@Test
 	public void testUnsupportedInputFunctions() {
-		InputStream virtualIn = new VirtualInputStream(new ByteArrayInputStream(new byte[0]));
+		VirtualInputStream virtualIn = new VirtualInputStream(new ByteArrayInputStream(new byte[0]));
 
 		assertFalse(virtualIn.markSupported());
 

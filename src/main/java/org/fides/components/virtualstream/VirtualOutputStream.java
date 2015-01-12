@@ -21,7 +21,7 @@ public class VirtualOutputStream extends FilterOutputStream {
 	private boolean closed = false;
 
 	/**
-	 * Constructor for VirtualOutputStream, checks the buffersize of the outputstream
+	 * Constructor for VirtualOutputStream, checks the buffer size of the OutputStream
 	 * 
 	 * @param out
 	 *            The {@link OutputStream} to build the virtual {@link OutputStream} upon

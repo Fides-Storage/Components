@@ -12,13 +12,13 @@ public class VirtualInputStream extends InputStream {
 
 	private short bytesLeft = 0;
 
-	private InputStream in;
+	private final InputStream in;
 
 	/**
 	 * Constructor for VirtualInputStream
 	 * 
 	 * @param in
-	 *            The inputstream to virtualize
+	 *            The InputStream to make virtual
 	 */
 	public VirtualInputStream(InputStream in) {
 		this.in = in;
@@ -54,7 +54,7 @@ public class VirtualInputStream extends InputStream {
 	@Override
 	public void close() throws IOException {
 		// We do not want to close the underlying InputStream
-		// We do want to read everything the virtualoutputstream wanted to give us
+		// We do want to read everything the VirtualOutputStream wanted to give us
 		while (read() != -1) {
 			// We just want to read until empty
 		}
