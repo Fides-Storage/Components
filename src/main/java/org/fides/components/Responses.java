@@ -3,7 +3,7 @@ package org.fides.components;
 /**
  * Responses that are used by the protocol
  */
-public class Responses {
+public final class Responses {
 
 	/**
 	 * The successful response
@@ -14,4 +14,13 @@ public class Responses {
 	 * The error response
 	 */
 	public static final String ERROR = "error";
+
+	/**
+	 * The location response, used for the list of locations
+	 */
+	public static final String LOCATIONS = "locations";
+
+	private Responses() {
+		// This class should not be instantiated
+	}
 }

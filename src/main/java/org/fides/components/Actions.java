@@ -3,8 +3,7 @@ package org.fides.components;
 /**
  * Actions that are used by the protocol
  */
-public class Actions {
-
+public final class Actions {
 	/**
 	 * action
 	 */
@@ -56,9 +55,19 @@ public class Actions {
 	public static final String DISCONNECT = "disconnect";
 
 	/**
+	 * The action for getting all the locations of files on the server
+	 */
+	public static final String REQUEST_LOCATIONS = "requestLocations";
+
+	private Actions() {
+		// This class should not be instantiated
+	}
+
+	/**
 	 * Properties that are used by the communication
 	 */
-	public class Properties {
+	public final class Properties {
+
 		/**
 		 * The property for usernameHash
 		 */
@@ -73,6 +82,10 @@ public class Actions {
 		 * The property for location
 		 */
 		public static final String LOCATION = "location";
+
+		private Properties() {
+			// This class should not be instantiated
+		}
 	}
 
 }
